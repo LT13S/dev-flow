@@ -1,0 +1,14 @@
+{
+  "name": "dev-flow",
+  "description": "dev-flow：改代码的开发流程 skill",
+  "owner": {
+    "name": "LT13S"
+  },
+  "plugins": [
+    {
+      "name": "dev-flow",
+      "source": "./",
+      "description": "改代码的开发流程：定规模、读项目档案、调研、一次拍板、实现、拿证据验证、收尾。前端、后端、移动端通用。"
+    }
+  ]
+}
