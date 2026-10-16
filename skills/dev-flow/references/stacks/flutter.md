@@ -56,7 +56,7 @@
   - 先 `flutter build`，再按 ios.md、android.md 的方法安装、启动、抓日志。Android 包在 `build/app/outputs/flutter-apk/app-<渠道>-<模式>.apk`（没有渠道就没有中间那段），iOS 真机包在 `build/ios/iphoneos/` 下。iOS 真机上脱离 `flutter run` 单独启动的，只能是 profile 或 release 包。
 - **构建模式**：debug 包慢，右上角有 DEBUG 角标（项目没关掉的话），截图对照设计时别当成差异。看流畅度、启动速度要用 profile 或 release。`assert` 和 `if (kDebugMode)` 里的代码，profile、release 包里不执行。
 - **热重载**：不会重新执行 `main()` 和已经执行过的 `initState`，全局变量、静态变量也不会重新初始化；改了原生代码或加了带原生代码的插件，要停掉重新运行。只有 debug 模式能热重载。后台跑的 `flutter run` 按不了 r：启动时加 `--pid-file <文件>`，`kill -USR1 $(cat <文件>)` 热重载，`kill -USR2` 热重启。最终验证以重新启动的 App 为准。
-- **截图**：`flutter screenshot -d <设备> -o <测试结果目录>/<文件>.png`。不加 `-o` 会在当前目录（也就是仓库里）生成 `flutter_01.png`。支持 Android 设备和模拟器、iOS 模拟器；iOS 17 以上的真机不支持，用 ios.md 里的方法。
+- **截图**：`flutter screenshot -d <设备> -o <原图目录>/<文件>.png`，原图放报告目录外，按 test-report.md 压缩后再放进报告。不加 `-o` 会在当前目录（也就是仓库里）生成 `flutter_01.png`。支持 Android 设备和模拟器、iOS 模拟器；iOS 17 以上的真机不支持，用 ios.md 里的方法。
 - **点按**：flutter 命令行没有点按功能，用 ios.md、android.md 里的工具。Flutter 整个界面画在一个原生视图里，这些工具读到的控件树里只有带文字或 Semantics 标签的组件（Key 看不到）；找不到元素就按截图上的坐标点。
 - **界面上的报错**：组件构建出错时，debug 包显示红底报错，profile、release 包里只是一块灰色。debug 包的运行日志里搜 `EXCEPTION CAUGHT BY` 和 `Another exception was thrown`，比如布局溢出会报 `A RenderFlex overflowed by`。截图看着正常也要搜一遍。
 - **日志**：

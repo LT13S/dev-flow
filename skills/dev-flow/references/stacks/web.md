@@ -47,7 +47,7 @@
 
 ## 界面验证与日志
 
-项目已有的 e2e 测试照常跑；不为了验证往仓库里新加测试文件。一次性的脚本和截图放测试结果目录。
+项目已有的 e2e 测试照常跑；不为了验证往仓库里新加测试文件。一次性的脚本放测试结果目录；截图的原图放报告目录外的临时目录（下面写作 `<原图目录>`），按 test-report.md 压缩后再放进测试结果目录。
 
 - **dev server**：
   - 启动前先看端口有没有被占：`lsof -nP -iTCP:<端口> -sTCP:LISTEN`。被占的多半是别的会话或用户开的，不要杀，换个端口。
@@ -60,8 +60,8 @@
 - **截图**：手机尺寸和桌面尺寸各截一张：
 
   ```sh
-  <执行> playwright screenshot --viewport-size="390,844" http://localhost:<端口>/<路径> <测试结果目录>/mobile.png
-  <执行> playwright screenshot --viewport-size="1440,900" http://localhost:<端口>/<路径> <测试结果目录>/desktop.png
+  <执行> playwright screenshot --viewport-size="390,844" http://localhost:<端口>/<路径> <原图目录>/mobile.png
+  <执行> playwright screenshot --viewport-size="1440,900" http://localhost:<端口>/<路径> <原图目录>/desktop.png
   ```
 
   - 要整页加 `--full-page`。内容是异步加载的，加 `--wait-for-selector=<选择器>` 等它出现再截，否则可能截到加载中的样子。深色模式加 `--color-scheme=dark`。
@@ -83,7 +83,7 @@
     page.on('response', r => { if (r.status() >= 400) problems.push(r.status() + ' ' + r.url()); });
     await page.goto('http://localhost:<端口>/<路径>');
     await page.getByRole('button', { name: '<按钮文字>' }).click();
-    await page.screenshot({ path: '<测试结果目录>/1-<简短名>.png', fullPage: true });
+    await page.screenshot({ path: '<原图目录>/01-<简短名>.png', fullPage: true });
     console.log(problems.join('\n') || 'no console errors or failed requests');
     await browser.close();
   })();
